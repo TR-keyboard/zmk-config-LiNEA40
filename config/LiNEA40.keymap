@@ -218,6 +218,9 @@
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors = <&zip_xy_to_scroll_mapper>;
+        input-processors = 
+            /* 速度を 1/2 に落とします（2 1 = 1÷2の意味） */
+            <&zip_scroll_scaler 2 1>, 
+            <&zip_xy_to_scroll_mapper>;
     };
 };
