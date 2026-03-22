@@ -219,9 +219,10 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 負の数を直接指定します。X軸をマイナス、Y軸をプラスに */
-            <&zip_xy_scaler -1 1 1 1>,
+            /* X軸（横）だけを反転させるプロセッサー */
             <&zip_scroll_scaler 32 1>, 
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            /* 最後にX軸だけを反転 */
+            <&zip_scroll_inverter 1 0>; 
     };
 };
