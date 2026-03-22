@@ -219,14 +219,9 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1. まずは重さを調整（32倍に減速） */
             <&zip_scroll_scaler 32 1>, 
-            /* 2. スクロール信号へ変換 */
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            /* X軸（1番目）のみを反転させる命令 */
+            <&zip_scroll_inverter 1 0>;
     };
-};
-
-/* スクロールの方向だけを個別に反転させる定義を外側で行います */
-&trackball {
-    x-invert;
 };
