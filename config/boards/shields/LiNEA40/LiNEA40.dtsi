@@ -98,6 +98,6 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         status = "okay";      /* ここを必ず okay に */
-        scroll-layers = <5>;  /* Layer 5 の時にスクロール動作を許可 */
+        scroll-layers = <6>;  /* Layer 6 の時にスクロール動作を許可 */
     };
 };
