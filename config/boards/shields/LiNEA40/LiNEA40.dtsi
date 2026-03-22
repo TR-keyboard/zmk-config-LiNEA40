@@ -93,8 +93,9 @@
         sensors = <&left_encoder>;
         triggers-per-rotation = <8>;
     };
-trackball_listener: trackball_listener {
-    compatible = "zmk,input-listener";
-    device = <&vtrackball>;
-    status = "okay";
+
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        status = "disabled";
+    };
 };
