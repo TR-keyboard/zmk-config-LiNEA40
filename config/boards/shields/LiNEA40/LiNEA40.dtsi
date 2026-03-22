@@ -93,6 +93,11 @@
         sensors = <&left_encoder>;
         triggers-per-rotation = <8>;
     };
-&trackball_listener {
-    status = "okay";
-};
+/* 他の定義の終わり */
+    };
+
+    /* トラックボールの有効化 */
+    &trackball_listener {
+        status = "okay";
+    };
+}; // ファイルの本当の終わり
