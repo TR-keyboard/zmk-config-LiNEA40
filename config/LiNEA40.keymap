@@ -214,13 +214,3 @@
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
         };
     };
-};#include <input/processors.dtsi>
-
-/* 右手(Central)のボール移動を「上下左右スクロール」として定義 */
-&trackball_listener {
-    scroller {
-        layers = <5>; 
-        /* zip_xy_to_scroll_mapper: これが上下左右を可能にします */
-        input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 10>;
-    };
-};
