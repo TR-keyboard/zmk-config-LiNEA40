@@ -219,11 +219,7 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1. 重さを32倍に（これは既に通ることが確認済み） */
             <&zip_scroll_scaler 32 1>, 
-            /* 2. ここで「X軸の方向だけを入れ替える」という原始的な処理をします */
-            <&zip_xy_scaler -1 1 1 1>,
-            /* 3. 最後にスクロールへ変換 */
             <&zip_xy_to_scroll_mapper>;
     };
 };
