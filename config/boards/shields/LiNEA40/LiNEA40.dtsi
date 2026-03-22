@@ -94,10 +94,8 @@
         triggers-per-rotation = <8>;
     };
 
-/* 右手(Central)のトラックボール入力を有効化 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
-        status = "okay";      /* ここを必ず okay に */
-        scroll-layers = <6>;  /* Layer 6 の時にスクロール動作を許可 */
+        status = "okay";
     };
 };
