@@ -219,11 +219,9 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1. X軸を「-1」倍にして反転、Y軸は「1」倍のまま */
-            <&zip_xy_scaler (-1) 1 1 1>,
-            /* 2. 重さを調整（32倍に減速） */
+            /* 負の数を直接指定します。X軸をマイナス、Y軸をプラスに */
+            <&zip_xy_scaler -1 1 1 1>,
             <&zip_scroll_scaler 32 1>, 
-            /* 3. スクロール信号へ変換 */
             <&zip_xy_to_scroll_mapper>;
     };
 };
