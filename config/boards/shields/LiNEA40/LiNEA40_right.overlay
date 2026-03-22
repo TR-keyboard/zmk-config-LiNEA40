@@ -61,6 +61,9 @@
         snipe-layers = <2>;
         scroll-layers = <5>;
         //scroll-layers = <4 5 6>;
+
+/* ここに追記：センサーの段階で左右を反転させます */
+        invert-x;
     };
 };
 
