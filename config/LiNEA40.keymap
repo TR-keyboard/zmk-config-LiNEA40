@@ -215,16 +215,3 @@
         };
     };
 };
-/* dtsiは一切いじりません。keymapの中で新しいスクロール専用の仕組みを作ります */
-/ {
-    trackball_scroll_node: trackball_scroll_node {
-        compatible = "zmk,input-listener";
-        device = <&vtrackball>;
-        status = "okay";
-
-        scroller {
-            layers = <6>; 
-            input-processors = <&zip_xy_to_scroll_mapper>;
-        };
-    };
-};
