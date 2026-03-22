@@ -67,4 +67,7 @@
 &trackball_listener {
     status = "okay";
     device = <&trackball>;
+/* これがセンサー自体の左右を反転させる魔法の言葉です */
+    invert-x; 
+};
 };
