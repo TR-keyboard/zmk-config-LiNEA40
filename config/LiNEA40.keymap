@@ -219,8 +219,8 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 左右反転と減速を、エラーが起きにくい1つの命令に集約してみます */
-            <&zip_xy_scaler (0 - 1) 1 1 64>,
+            /* 32で通ったので、64も通るはずです。数字が大きいほど遅くなります */
+            <&zip_scroll_scaler 64 1>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
