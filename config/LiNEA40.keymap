@@ -219,11 +219,8 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1. 小さな動きを無視して「遊び」を作り、軸を安定させる */
-            <&zip_temp_filter 10>,
-            /* 2. 32倍に減速して「重み」を出す */
-            <&zip_scroll_scaler 32 1>, 
-            /* 3. 最後にスクロール信号へ変換 */
+            /* 1/64倍速に設定。これで微細なブレを無視し、しっとりした重さを出します */
+            <&zip_scroll_scaler 64 1>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
