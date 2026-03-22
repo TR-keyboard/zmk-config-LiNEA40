@@ -215,15 +215,13 @@
         };
     };
 };
-/* 末尾のこの部分を差し替え */
 &trackball_listener {
     scroller {
-        /* lt 6 K なのでレイヤー6で正解です */
-        layers = <6>; 
+        layers = <6>;
         input-processors = 
-            /* 分子をマイナスにすることで「左右反転」と「劇的な減速」を同時に行います */
-            /* 128は以前の64の倍の重さになり、Macでもしっとり動きます */
-            <&zip_scroll_scaler -128 1>, 
+            /* 32で通ったので、64も通るはずです。数字が大きいほど遅くなります */
+            <&zip_scroll_scaler 128 1>, 
             <&zip_xy_to_scroll_mapper>;
     };
+
 };
