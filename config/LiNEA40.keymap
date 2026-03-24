@@ -211,6 +211,6 @@
         input-processors = 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, // 1.上下を逆転
             <&zip_xy_to_scroll_mapper>,                  // 2.スクロールに変換
-            <&zip_wheel_scaler 1 4>;                     // 3.速度を1/4に落とす
+            <&zip_wheel_scaler 1 16>;                     // 3.速度を1/16に落とす
     };
 };
