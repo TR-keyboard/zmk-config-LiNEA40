@@ -223,5 +223,4 @@
             <&zip_scroll_scaler 128 1>, 
             <&zip_xy_to_scroll_mapper>;
     };
-
 };
