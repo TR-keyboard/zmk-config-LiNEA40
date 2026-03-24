@@ -194,6 +194,9 @@
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors = <&zip_xy_to_scroll_mapper>;
+        input-processors = 
+            /* 修正ポイント：-256をカッコで囲みます */
+            <&zip_scroll_scaler (-256) 1>, 
+            <&zip_xy_to_scroll_mapper>;
     };
 };
