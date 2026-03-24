@@ -51,17 +51,6 @@
         input-processors = <&zip_wheel_scaler 3 1>; //スクロールを3倍速にする
     };
 };
-
-&trackball_listener {
-    scroller {
-        layers = <SCROLL>;
-        input-processors =
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,
-            <&zip_xy_to_scroll_mapper>;
-    };
-};
-
 / {
     combos {
         compatible = "zmk,combos";
@@ -215,13 +204,14 @@
         };
     };
 };
+/* ファイルの最末尾：ここを書き換える */
 &trackball_listener {
     scroller {
         layers = <6>;
         input-processors = 
-            /* 32で通ったので、64も通るはずです。数字が大きいほど遅くなります */
-            <&zip_scroll_scaler 128 1>, 
+            /* マイナス(-)をつけることで「逆転」させ、
+               数字を「256」にすることで「低速化」させます */
+            <&zip_scroll_scaler -256 1>, 
             <&zip_xy_to_scroll_mapper>;
     };
-
 };
