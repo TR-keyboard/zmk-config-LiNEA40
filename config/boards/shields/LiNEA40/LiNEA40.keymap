@@ -15,7 +15,6 @@
 #define SCROLL 6
 #define WIRELESS 7
 
-//mouse cursol
 &mmv {
     delay-ms = <20>;
     trigger-period-ms = <5>;
@@ -23,7 +22,6 @@
     acceleration-exponent = <2>;
 };
 
-//mouse scroll
 &msc {
     delay-ms = <3>;
     trigger-period-ms = <3>;
@@ -50,7 +48,6 @@
     };
 };
 
-/* 1箇所目の listener */
 &trackball_listener {
     scroller {
         layers = <SCROLL>;
