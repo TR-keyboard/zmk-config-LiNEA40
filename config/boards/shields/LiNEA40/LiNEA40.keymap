@@ -197,13 +197,3 @@
         };
     };
 };
-
-/* 2箇所目の listener */
-&trackball_listener {
-    scroller {
-        layers = <6>;
-        input-processors = 
-            <&zip_scroll_scaler 128 1>, 
-            <&zip_xy_to_scroll_mapper>;
-    };
-};
