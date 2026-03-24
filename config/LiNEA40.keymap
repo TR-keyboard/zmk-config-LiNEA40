@@ -204,14 +204,12 @@
         };
     };
 };
-/* ファイルの最末尾：ここを書き換える */
+/* ファイルの最末尾：このブロックに差し替えてください */
 &trackball_listener {
     scroller {
         layers = <6>;
         input-processors = 
-            /* マイナス(-)をつけることで「逆転」させ、
-               数字を「256」にすることで「低速化」させます */
-            <&zip_scroll_scaler -256 1>, 
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
     };
 };
