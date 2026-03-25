@@ -190,7 +190,7 @@
 &trans  &trans                      &trans                    &trans                       &trans  &trans    &kp LG(KP_MINUS)  &kp LG(KP_PLUS)                        &trans  &trans                 &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
+            sensor-bindings = <&inc_dec_kp UP_ARROW DOWN_ARROW>;
         };
 
         WIRELESS {
@@ -211,9 +211,12 @@
         layers = <6>;
         input-processors =
             /* 1. X/Y移動の段階で、動きを 1/32 に極限まで落とす */,
+            ,,
             <&zip_xy_scaler 1 32>,
+            ,,
             /* 2. 上下を逆転させる */,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+            ,,
             /* 3. 最後に、その「小さくなった動き」をスクロールに変換する */,
             <&zip_xy_to_scroll_mapper>;
     };
