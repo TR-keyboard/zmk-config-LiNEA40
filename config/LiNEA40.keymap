@@ -205,19 +205,13 @@
         };
     };
 };
-
+/* ここから下を完全に上書きしてください */
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors =
-            /* 1. X/Y移動の段階で、動きを 1/32 に極限まで落とす */,
-            ,,
-            <&zip_xy_scaler 1 32>,
-            ,,
-            /* 2. 上下を逆転させる */,
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            ,,
-            /* 3. 最後に、その「小さくなった動き」をスクロールに変換する */,
+        input-processors = 
+            <&zip_xy_scaler 1 32>, 
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
