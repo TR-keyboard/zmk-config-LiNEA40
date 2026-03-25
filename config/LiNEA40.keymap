@@ -168,7 +168,7 @@
 &trans  &trans  &trans  &trans          &trans  &trans    &trans  &trans                   &trans      &trans               &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
+            sensor-bindings = <&inc_dec_kp LEFT_ARROW RIGHT_ARROW>;
         };
 
         FUNCTION {
@@ -205,13 +205,15 @@
         };
     };
 };
+
 /* ここから下を完全に上書きしてください */
+
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors = 
-            <&zip_xy_scaler 1 32>, 
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, 
+        input-processors =
+            <&zip_xy_scaler 1 32>,
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
     };
 };
