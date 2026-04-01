@@ -1,4 +1,4 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 200
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 300
 
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
@@ -206,16 +206,17 @@
     };
 };
 &trackball_listener {
+    status = "okay";
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1. 「2」を「1」に変更。これで待ち時間をゼロにし、コマ数を最大にします */
-            <&zip_xy_scaler 1 1>, 
-            /* 2. 1コマあたりの移動量を極限まで薄めます */
-            /* 20から32へ増やし、さらにそれを2回重ねて「超低速」を実現します */
-            <&zip_wheel_scaler 1 32>,
-            <&zip_wheel_scaler 1 32>,
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, 
-            <&zip_xy_to_scroll_mapper>;
+            /* 1. 座標の変化をダイレクトに受け取る（溜めをゼロにする） */
+            <&zip_xy_scaler 1 1>,
+            /* 2. 反転処理を先に行う */
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+            /* 3. ここで「スクロール」に変換する */
+            <&zip_xy_to_scroll_mapper>,
+            /* 4. 【重要】変換された「スクロール信号」を力ずくで極小にする */
+            <&zip_scroll_scaler 1 20>; 
     };
 };
