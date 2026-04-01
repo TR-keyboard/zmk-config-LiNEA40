@@ -205,15 +205,15 @@
         };
     };
 };
-
-/* ここから下を完全に上書きしてください */
-
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors =
-            <&zip_xy_scaler 1 8>,
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+        input-processors = 
+            /* カクつきを防ぐため「溜め」は 2 のまま維持 */
+            <&zip_xy_scaler 1 2>, 
+            /* マウスのスクロール量だけをさらに 1/5 に絞ります（2から5へ） */
+            <&zip_wheel_scaler 1 8>,
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
