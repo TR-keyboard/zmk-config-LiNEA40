@@ -209,10 +209,12 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* カクつきを防ぐため「溜め」は 2 のまま維持 */
-            <&zip_xy_scaler 1 2>, 
-            /* マウスのスクロール量だけをさらに 1/5 に絞ります（2から5へ） */
-            <&zip_wheel_scaler 1 20>,
+            /* 1. 「2」を「1」に変更。これで待ち時間をゼロにし、コマ数を最大にします */
+            <&zip_xy_scaler 1 1>, 
+            /* 2. 1コマあたりの移動量を極限まで薄めます */
+            /* 20から32へ増やし、さらにそれを2回重ねて「超低速」を実現します */
+            <&zip_wheel_scaler 1 32>,
+            <&zip_wheel_scaler 1 32>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, 
             <&zip_xy_to_scroll_mapper>;
     };
