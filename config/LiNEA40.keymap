@@ -34,16 +34,15 @@
 };
 
 / {
-    input_processors {
+   input_processors {
         zip_wheel_scaler: zip_wheel_scaler {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
             type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>;
+            codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>;
             track-remainders;
         };
     };
-};
 
 &msc_input_listener {
     speed_up {
@@ -207,11 +206,20 @@
 };/* ここから下を完全に上書きしてください */
 
 &trackball_listener {
+  status = "okay";
+    /* 1. デバイス指定（前回の赤エラーを確実に防ぎます） */
+    device = <&vtrackball>; 
+
     scroller {
         layers = <6>;
-        input-processors =
-            <&zip_xy_scaler 1 20>,
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
+        input-processors = 
+            /* 2. 溜めを1にして、触った瞬間に反応させます（ジャンプ解消） */
+            <&zip_xy_scaler 1 1>, 
+            /* 3. 反転処理 */
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, 
+            /* 4. 座標をスクロールに変換 */
+            <&zip_xy_to_scroll_mapper>,
+            /* 5. エンコーダーの300と同じ重みにして同期させます */
+            <&zip_wheel_scaler 1 300>;
     };
 };
