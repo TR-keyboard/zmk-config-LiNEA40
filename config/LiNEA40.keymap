@@ -207,16 +207,19 @@
 };
 &trackball_listener {
     status = "okay";
+    /* ここにセンサーの指定が必要です。お使いの環境に合わせて追加しました */
+    device = <&vtrackball>; 
+
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1. 座標の変化をダイレクトに受け取る（溜めをゼロにする） */
+            /* 1. 待ち時間を1（なし）にしてカクつきを排除 */
             <&zip_xy_scaler 1 1>,
-            /* 2. 反転処理を先に行う */
+            /* 2. 反転処理 */
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* 3. ここで「スクロール」に変換する */
+            /* 3. ここでスクロール信号に変換 */
             <&zip_xy_to_scroll_mapper>,
-            /* 4. 【重要】変換された「スクロール信号」を力ずくで極小にする */
-            <&zip_scroll_scaler 1 20>; 
+            /* 4. スクロール信号そのものを1/30に圧縮して、極低速を実現 */
+            <&zip_scroll_scaler 1 30>;
     };
 };
