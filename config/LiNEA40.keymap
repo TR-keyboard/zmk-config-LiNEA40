@@ -205,21 +205,14 @@
         };
     };
 };
-&trackball_listener {
-    status = "okay";
-    /* どのデバイスを監視するか指定（ビルドエラー回避） */
-    device = <&vtrackball>; 
+};/* ここから下を完全に上書きしてください */
 
+&trackball_listener {
     scroller {
         layers = <6>;
-        input-processors = 
-            /* 1. 待ち時間を最小(1/1)にしてカクつきを消す */
-            <&zip_xy_scaler 1 1>, 
-            /* 2. 反転 */
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, 
-            /* 3. ここでスクロールに変換 */
-            <&zip_xy_to_scroll_mapper>,
-            /* 4. 【重要】変換後のスクロール信号を、エンコーダーに影響させず、マウスだけ1/20に減速 */
-            <&zip_scroll_scaler 1 20>;
+        input-processors =
+            <&zip_xy_scaler 1 30>,
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+            <&zip_xy_to_scroll_mapper>;
     };
 };
