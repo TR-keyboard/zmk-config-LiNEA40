@@ -204,13 +204,16 @@
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
         };
     };
-};/* ここから下を完全に上書きしてください */
 &trackball_listener {
     scroller {
         layers = <6>;
         input-processors =
-            <&zip_xy_scaler 1 1>,
+            /* A. マウスの解像度を16倍にブースト（ジャンプを消す） */
+            <&zip_xy_scaler 16 1>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
+            /* B. ここでスクロール信号に変換（高密度な信号が出る） */
+            <&zip_xy_to_scroll_mapper>, 
+            /* C. ご自身で定義した 1 160 のブレーキを適用（ヌルヌルにする） */
+            <&zip_wheel_scaler 1 160>; 
     };
 };
