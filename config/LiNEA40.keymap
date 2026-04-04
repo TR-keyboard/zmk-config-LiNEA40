@@ -48,7 +48,7 @@
 &msc_input_listener {
     speed_up {
         layers = <SCROLL>;
-        input-processors = <&zip_wheel_scaler 1 600>; //スクロールを3倍速にする
+        input-processors = <&zip_wheel_scaler 1 1000>; //スクロールを3倍速にする
     };
 };
 
