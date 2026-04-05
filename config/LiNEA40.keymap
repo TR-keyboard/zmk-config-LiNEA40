@@ -34,7 +34,18 @@
 };
 
 / {
+  / {
     input_processors {
+        /* トラックボール専用：マウス移動(XY)の段階で端数を貯金するスケーラー */
+        zip_xy_scaler_smooth: zip_xy_scaler_smooth {
+            compatible = "zmk,input-processor-scaler";
+            #input-processor-cells = <2>;
+            type = <INPUT_EV_REL>;
+            codes = <INPUT_REL_X>, <INPUT_REL_Y>;
+            track-remainders; // Zenn記事の核となる設定
+        };
+
+        /* 既存のホイール用（エンコーダー等にも影響する可能性あり） */
         zip_wheel_scaler: zip_wheel_scaler {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
@@ -208,12 +219,11 @@
     scroller {
         layers = <6>;
         input-processors =
-            /* A. マウスの解像度を16倍にブースト（ジャンプを消す） */
-            <&zip_xy_scaler 16 1>, 
+            /* 1. XYの段階で「貯金」しながら 1/150 に減速（ここがヌルヌルの決め手） */
+            <&zip_xy_scaler_smooth 1 150>,
+            /* 2. 上下反転 */
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* B. ここでスクロール信号に変換（高密度な信号が出る） */
-            <&zip_xy_to_scroll_mapper>, 
-            /* C. ご自身で定義した 1 160 のブレーキを適用（ヌルヌルにする） */
-            <&zip_wheel_scaler 1 160>; 
+            /* 3. 最後に 300(SCRL_VAL) という大きな単位でスクロールに変換 */
+            <&zip_xy_to_scroll_mapper>;
     };
 };
