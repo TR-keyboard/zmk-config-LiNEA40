@@ -15,8 +15,7 @@
 #define SCROLL 6
 #define WIRELESS 7
 
-//mouse cursol
-
+/* マウス移動設定 */
 &mmv {
     delay-ms = <20>;
     trigger-period-ms = <5>;
@@ -24,8 +23,7 @@
     acceleration-exponent = <2>;
 };
 
-//mouse scroll
-
+/* マウススクロール設定 */
 &msc {
     delay-ms = <3>;
     trigger-period-ms = <3>;
@@ -34,18 +32,16 @@
 };
 
 / {
-  / {
+    /* 1. プロセッサー定義：二重になっていたのを整理しました */
     input_processors {
-        /* トラックボール専用：マウス移動(XY)の段階で端数を貯金するスケーラー */
         zip_xy_scaler_smooth: zip_xy_scaler_smooth {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
             type = <INPUT_EV_REL>;
             codes = <INPUT_REL_X>, <INPUT_REL_Y>;
-            track-remainders; // Zenn記事の核となる設定
+            track-remainders;
         };
 
-        /* 既存のホイール用（エンコーダー等にも影響する可能性あり） */
         zip_wheel_scaler: zip_wheel_scaler {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
@@ -54,71 +50,35 @@
             track-remainders;
         };
     };
-};
 
-&msc_input_listener {
-    speed_up {
-        layers = <SCROLL>;
-        input-processors = <&zip_wheel_scaler 1 15000>; //スクロールを3倍速にする
-    };
-};
-
-/ {
+    /* 2. コンボ設定 */
     combos {
         compatible = "zmk,combos";
-
-        ZenkakuHankaku {
-            bindings = <&kp GRAVE>;
-            key-positions = <11 12>;
-        };
-
-        DeleteKey {
-            bindings = <&kp DEL>;
-            key-positions = <7 8>;
-        };
-
-        InsertKey {
-            bindings = <&kp INS>;
-            key-positions = <6 7>;
-        };
-
-        CenterClick {
-            bindings = <&mkp MB3>;
-            key-positions = <17 16>;
-        };
-
-        RightClick {
-            bindings = <&mkp MB2>;
-            key-positions = <18 17>;
-        };
-
-        PrevClick {
-            bindings = <&mkp MB4>;
-            key-positions = <27 28>;
-        };
-
-        ClickNext {
-            bindings = <&mkp MB5>;
-            key-positions = <26 27>;
-        };
+        ZenkakuHankaku { bindings = <&kp GRAVE>; key-positions = <11 12>; };
+        DeleteKey { bindings = <&kp DEL>; key-positions = <7 8>; };
+        InsertKey { bindings = <&kp INS>; key-positions = <6 7>; };
+        CenterClick { bindings = <&mkp MB3>; key-positions = <17 16>; };
+        RightClick { bindings = <&mkp MB2>; key-positions = <18 17>; };
+        PrevClick { bindings = <&mkp MB4>; key-positions = <27 28>; };
+        ClickNext { bindings = <&mkp MB5>; key-positions = <26 27>; };
     };
 
+    /* 3. ビヘイビア設定 */
     behaviors {
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
             bindings = <&kp>, <&kp>;
         };
-
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
             bindings = <&msc>, <&msc>;
-
             tap-ms = <20>;
         };
     };
 
+    /* 4. マクロ設定 */
     macros {
         Hero: Hero {
             compatible = "zmk,behavior-macro";
@@ -128,6 +88,7 @@
         };
     };
 
+    /* 5. キーマップ（あなたのボタン配置をすべて保持しています） */
     keymap {
         compatible = "zmk,keymap";
 
@@ -138,7 +99,6 @@
 &kp Z           &kp X         &kp C                &kp V    &kp B                                     &kp N        &kp M  &kp COMMA  &kp DOT  &kp SLASH
 &kp LEFT_SHIFT  &kp LEFT_ALT  &mt LEFT_COMMAND F4  &kp INS  &lt 2 SPACE  &lt 3 CAPS    &kp BACKSPACE  &lt 4 ENTER         &lt 7 F4   &kp TAB  &kp ESCAPE
             >;
-
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
@@ -158,16 +118,15 @@
 &kp TAB         &trans    &kp DOWN  &trans           &trans                                 &kp LS(LEFT_BRACKET)  &kp LS(RIGHT_BRACKET)  &kp COMMA  &kp PERIOD  &kp SLASH
 &kp LEFT_SHIFT  &trans    &trans    &trans           &trans        &trans    &kp BACKSPACE  &trans                                       &trans     &trans      &trans
             >;
-
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
         };
 
         Mark {
             bindings = <
-&kp EXCLAMATION  &kp AT  &kp POUND  &kp DOLLAR  &kp PERCENT                    &kp CARET           &kp AMPERSAND        &kp ASTERISK       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
-&trans           &trans  &trans     &trans      &trans                         &trans              &trans               &kp DOUBLE_QUOTES  &kp UNDERSCORE        &kp PLUS
-&trans           &trans  &trans     &trans      &trans                         &kp LS(LEFT_BRACE)  &kp LS(RIGHT_BRACE)  &kp LESS_THAN      &kp GREATER_THAN      &kp QUESTION
-&trans           &trans  &trans     &trans      &trans       &trans    &trans  &trans                                   &trans             &trans                &trans
+&kp EXCLAMATION  &kp AT  &kp POUND  &kp DOLLAR  &kp PERCENT                    &kp CARET            &kp AMPERSAND        &kp ASTERISK       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
+&trans           &trans  &trans     &trans      &trans                         &trans               &trans               &kp DOUBLE_QUOTES  &kp UNDERSCORE        &kp PLUS
+&trans           &trans  &trans     &trans      &trans                         &kp LS(LEFT_BRACE)   &kp LS(RIGHT_BRACE)  &kp LESS_THAN      &kp GREATER_THAN      &kp QUESTION
+&trans           &trans  &trans     &trans      &trans        &trans    &trans  &trans                                    &trans             &trans                &trans
             >;
         };
 
@@ -176,9 +135,8 @@
 &trans  &trans  &trans  &kp LS(LG(N4))  &trans                    &Hero   &kp LS(LC(TAB))  &kp LG(W)   &kp RC(TAB)          &kp C_VOLUME_UP
 &trans  &trans  &trans  &trans          &trans                    &trans  &kp LC(LEFT)     &kp LC(UP)  &kp LC(RIGHT_ARROW)  &kp C_VOLUME_DOWN
 &trans  &trans  &trans  &trans          &trans                    &trans  &trans           &trans      &trans               &kp K_MUTE
-&trans  &trans  &trans  &trans          &trans  &trans    &trans  &trans                   &trans      &trans               &trans
+&trans  &trans  &trans  &trans          &trans  &trans    &trans  &trans                    &trans      &trans                &trans
             >;
-
             sensor-bindings = <&inc_dec_kp LEFT_ARROW RIGHT_ARROW>;
         };
 
@@ -189,18 +147,16 @@
 &trans  &trans  &trans  &kp F11  &kp F12                    &kp C_MUTE  &trans  &trans               &trans  &kp LC(LA(INS))
 &trans  &trans  &trans  &trans   &trans   &trans    &trans  &trans              &trans               &trans  &trans
             >;
-
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         SCROLL {
             bindings = <
-&trans  &kp LC(LA(LEFT_ARROW))      &kp LS(LC(LA(UP_ARROW)))  &kp LC(LA(RIGHT_ARROW))      &trans                              &trans           &trans                &trans  &trans                 &trans
-&trans  &kp LS(LA(LC(LEFT_ARROW)))  &kp LS(LA(LC(DOWN)))      &kp LS(LA(LC(RIGHT_ARROW)))  &trans                              &trans           &kp LG(LEFT_BRACKET)  &trans  &kp LG(RIGHT_BRACKET)  &trans
-&trans  &trans                      &kp LG(M)                 &trans                       &trans                              &trans           &trans                &trans  &trans                 &trans
+&trans  &kp LC(LA(LEFT_ARROW))      &kp LS(LC(LA(UP_ARROW)))  &kp LC(LA(RIGHT_ARROW))      &trans                                &trans            &trans                &trans  &trans                 &trans
+&trans  &kp LS(LA(LC(LEFT_ARROW)))  &kp LS(LA(LC(DOWN)))      &kp LS(LA(LC(RIGHT_ARROW)))  &trans                                &trans            &kp LG(LEFT_BRACKET)  &trans  &kp LG(RIGHT_BRACKET)  &trans
+&trans  &trans                      &kp LG(M)                 &trans                       &trans                                &trans            &trans                &trans  &trans                 &trans
 &trans  &trans                      &trans                    &trans                       &trans  &trans    &kp LG(KP_MINUS)  &kp LG(KP_PLUS)                        &trans  &trans                 &trans
             >;
-
             sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
         };
 
@@ -209,21 +165,27 @@
 &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                         &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
 &trans        &trans        &trans        &trans        &trans                               &trans          &trans        &trans        &trans        &trans
 &trans        &trans        &trans        &trans        &trans                               &trans          &trans        &trans        &trans        &bt BT_CLR
-&trans        &trans        &trans        &trans        &trans        &trans    &bootloader  &studio_unlock                &trans        &trans        &bt BT_CLR_ALL
+&trans        &trans        &trans        &trans        &trans        &trans    &bootloader  &studio_unlock               &trans        &trans        &bt BT_CLR_ALL
             >;
-
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
         };
     };
+}; /* ← ここで / { ... } を閉じます */
+
+/* 6. リスナー設定：ルートノードの外側に書く必要があります */
+&msc_input_listener {
+    speed_up {
+        layers = <SCROLL>;
+        input-processors = <&zip_wheel_scaler 1 15000>;
+    };
+};
+
 &trackball_listener {
     scroller {
         layers = <6>;
         input-processors =
-            /* 1. XYの段階で「貯金」しながら 1/150 に減速（ここがヌルヌルの決め手） */
             <&zip_xy_scaler_smooth 1 150>,
-            /* 2. 上下反転 */
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* 3. 最後に 300(SCRL_VAL) という大きな単位でスクロールに変換 */
             <&zip_xy_to_scroll_mapper>;
     };
 };
