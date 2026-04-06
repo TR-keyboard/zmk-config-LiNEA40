@@ -184,7 +184,7 @@
         layers = <6>;
         input-processors =
             /* 10まで下げて反応を極限まで速くする */
-            <&zip_xy_scaler_smooth 1 30>, 
+            <&zip_xy_scaler_smooth 1 20>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
     };
