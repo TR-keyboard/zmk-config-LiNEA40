@@ -185,7 +185,7 @@
         layers = <6>;
         input-processors =
             /* 1 120 程度が、PRの理論値に最も近く、かつ安定する数値です */
-            <&zip_xy_scaler_smooth 1 120>, 
+            <&zip_xy_scaler_smooth 1 50>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
     };
