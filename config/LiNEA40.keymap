@@ -23,10 +23,10 @@
     acceleration-exponent = <2>;
 };
 
-/* マウススクロール設定 */
+/* マウススクロール設定のみを変更 */
 &msc {
-    delay-ms = <0>;           /* 3から0へ */
-    trigger-period-ms = <5>;  /* 3から5へ（安定化） */
+    delay-ms = <0>;
+    trigger-period-ms = <1>;  /* 5から1へ：スクロールの解像度を5倍に高める */
     time-to-max-speed-ms = <0>;
     acceleration-exponent = <0>;
 };
@@ -184,8 +184,8 @@
     scroller {
         layers = <6>;
         input-processors =
-            /* 3 1（加速）から 1 10（精密な減速）へ変更 */
-            <&zip_xy_scaler_smooth 1 10>, 
+            /* 1 10 から 1 30 へ：1回のジャンプを30分の1に細分化 */
+            <&zip_xy_scaler_smooth 1 30>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
     };
