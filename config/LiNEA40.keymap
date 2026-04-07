@@ -33,13 +33,14 @@
 
 / {
     /* 1. プロセッサー定義：二重になっていたのを整理しました */
-    input_processors {
+   input_processors {
         zip_xy_scaler_smooth: zip_xy_scaler_smooth {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
             type = <INPUT_EV_REL>;
             codes = <INPUT_REL_X>, <INPUT_REL_Y>;
-            track-remainders;
+            /* PRの「滑らかさ」の正体：微細な動きを捨てずに蓄積する */
+            track-remainders; 
         };
 
         zip_wheel_scaler: zip_wheel_scaler {
