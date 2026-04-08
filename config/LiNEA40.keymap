@@ -202,7 +202,7 @@
 &trans  &trans                      &trans                    &trans                       &trans  &trans    &kp LG(KP_MINUS)  &kp LG(KP_PLUS)                        &trans  &trans                 &trans
             >;
 
-            sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
+            sensor-bindings = <&mouse_scrl SCRL_LEFT SCRL_RIGHT>;
         };
 
         WIRELESS {
@@ -230,7 +230,7 @@
     scroller {
         layers = <6>;
         input-processors =
-            /* 1 10 から 1 30 へ：1回のジャンプを30分の1に細分化 */
+            /* 1 10 から 1 30 へ：1回のジャンプを30分の1に細分化 */,
             <&zip_xy_scaler_smooth 1 30>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
