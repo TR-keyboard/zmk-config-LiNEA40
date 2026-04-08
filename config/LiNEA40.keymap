@@ -230,8 +230,7 @@
     scroller {
         layers = <6>;
         input-processors =
-            /* 1 10 から 1 30 へ：1回のジャンプを30分の1に細分化 */,
-            ,,
+            /* 1 10 から 1 30 へ：1回のジャンプを30分の1に細分化 */
             <&zip_xy_scaler_smooth 1 30>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
