@@ -106,12 +106,12 @@
             #sensor-binding-cells = <2>;
             bindings = <&kp>, <&kp>;
         };
-
-        mouse_scrl: mouse_wheel_scrl {
+mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&msc>, <&msc>;
-            tap-ms = <20>;
+            /* 方向を固定し、初期動作の不安定さを解消します */
+            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+            tap-ms = <20>; 
         };
     };
 
@@ -226,9 +226,9 @@
         layers = <SCROLL>;
         input-processors = 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* トラックボールのスクロール速度を1/30に大幅減速 */
+            /* トラックボールのスクロール速度を1/40に大幅減速 */
             /* これで「早すぎる」問題を物理的に抑え込みます */
-            <&zip_xy_scaler 1 30>, 
+            <&zip_xy_scaler 1 40>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
