@@ -204,7 +204,7 @@
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
         };
     };
-};
+};/
 &trackball_listener {
     scroller {
         layers = <6>;
