@@ -109,7 +109,7 @@
 mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            /* コンマを消し、一つのブラケット内に並べます */
+            /* SCRL_DOWN と SCRL_UP を直接並べます。コンマは絶対に入れないでください */
             bindings = <&msc SCRL_DOWN &msc SCRL_UP>;
             tap-ms = <20>; 
         };
@@ -216,9 +216,10 @@ mouse_scrl: mouse_wheel_scrl {
         };
     };
 }; /* ← ここで / { ... } を閉じます */
-/* 6. リスナー設定：エンコーダーには干渉せず、トラックボールだけを調整 */
+/* 6. リスナー設定 */
+
 &msc_input_listener {
-    /* ここを空（またはデフォルト）にすることで、エンコーダー側の感度を元に戻します */
+    /* 空にすることで、エンコーダー側の設定を初期状態（相談前）として扱います */
 };
 
 &trackball_listener {
@@ -226,8 +227,7 @@ mouse_scrl: mouse_wheel_scrl {
         layers = <SCROLL>;
         input-processors = 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* トラックボールのスクロール速度を1/40に大幅減速 */
-            /* これで「早すぎる」問題を物理的に抑え込みます */
+            /* トラックボールのスクロールを1/40に落とします */
             <&zip_xy_scaler 1 40>, 
             <&zip_xy_to_scroll_mapper>;
     };
