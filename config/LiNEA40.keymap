@@ -109,8 +109,8 @@
 mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            /* 方向を固定し、初期動作の不安定さを解消します */
-            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+            /* コンマを消し、一つのブラケット内に並べます */
+            bindings = <&msc SCRL_DOWN &msc SCRL_UP>;
             tap-ms = <20>; 
         };
     };
