@@ -218,13 +218,13 @@
     };
 }; /* ← ここで / { ... } を閉じます */
 /* 6. リスナー設定：ルートノードの外側に書く必要があります */
-
 &msc_input_listener {
     speed_up {
         layers = <SCROLL>;
-        input-processors = <&zip_wheel_scaler 1 15000>;
+        input-processors = <&zip_wheel_scaler 1 1>; 
     };
 };
+
 &trackball_listener {
     scroller {
         layers = <SCROLL>;
