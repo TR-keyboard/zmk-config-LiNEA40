@@ -111,8 +111,7 @@
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
             bindings = <&msc>, <&msc>;
-
-            tap-ms = <100>;
+            tap-ms = <20>;
         };
     };
 
@@ -217,12 +216,9 @@
         };
     };
 }; /* ← ここで / { ... } を閉じます */
-/* 6. リスナー設定：ルートノードの外側に書く必要があります */
+/* 6. リスナー設定：エンコーダーには干渉せず、トラックボールだけを調整 */
 &msc_input_listener {
-    speed_up {
-        layers = <SCROLL>;
-        input-processors = <&zip_wheel_scaler 1 10>; 
-    };
+    /* ここを空（またはデフォルト）にすることで、エンコーダー側の感度を元に戻します */
 };
 
 &trackball_listener {
@@ -230,8 +226,9 @@
         layers = <SCROLL>;
         input-processors = 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* ここで移動量を1/5に減速。もしこれでも早ければ 1 10 にしてください */
-            <&zip_xy_scaler 1 5>, 
+            /* トラックボールのスクロール速度を1/30に大幅減速 */
+            /* これで「早すぎる」問題を物理的に抑え込みます */
+            <&zip_xy_scaler 1 30>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
