@@ -15,7 +15,7 @@
 #define SCROLL 6
 #define WIRELESS 7
 
-/* マウス移動設定 */
+//mouse cursol
 
 &mmv {
     delay-ms = <20>;
@@ -24,30 +24,17 @@
     acceleration-exponent = <2>;
 };
 
-/* マウススクロール設定のみを変更 */
+//mouse scroll
 
 &msc {
-    delay-ms = <0>;
-    trigger-period-ms = <1>;  /* 5から1へ：スクロールの解像度を5倍に高める */
-    time-to-max-speed-ms = <0>;
+    delay-ms = <3>;
+    trigger-period-ms = <3>;
+    time-to-max-speed-ms = <100>;
     acceleration-exponent = <0>;
 };
 
 / {
-    /* 1. プロセッサー定義：二重になっていたのを整理しました */
-
     input_processors {
-        zip_xy_scaler_smooth: zip_xy_scaler_smooth {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_X>, <INPUT_REL_Y>;
-
-            /* PRの「滑らかさ」の正体：微細な動きを捨てずに蓄積する */
-
-            track-remainders;
-        };
-
         zip_wheel_scaler: zip_wheel_scaler {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
@@ -56,9 +43,16 @@
             track-remainders;
         };
     };
+};
 
-    /* 2. コンボ設定 */
+&msc_input_listener {
+    speed_up {
+        layers = <FUNCTION>;
+        input-processors = <&zip_wheel_scaler 3 1>; //スクロールを3倍速にする
+    };
+};
 
+/ {
     combos {
         compatible = "zmk,combos";
 
@@ -98,24 +92,21 @@
         };
     };
 
-    /* 3. ビヘイビア設定 */
-
     behaviors {
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
             bindings = <&kp>, <&kp>;
         };
-mouse_scrl: mouse_wheel_scrl {
+
+        mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            /* SCRL_DOWN と SCRL_UP を直接並べます。コンマは絶対に入れないでください */
-            bindings = <&msc SCRL_DOWN &msc SCRL_UP>;
-            tap-ms = <20>; 
+            bindings = <&msc>, <&msc>;
+
+            tap-ms = <20>;
         };
     };
-
-    /* 4. マクロ設定 */
 
     macros {
         Hero: Hero {
@@ -126,15 +117,13 @@ mouse_scrl: mouse_wheel_scrl {
         };
     };
 
-    /* 5. キーマップ（あなたのボタン配置をすべて保持しています） */
-
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-&mt LEFT_ALT Q  &kp W         &kp E                &kp R    &kp T                                     &kp Y        &kp U  &kp I      &kp O    &kp P
-&kp A           &kp S         &kp D                &kp F    &kp G                                     &kp H        &kp J  &lt 6 K    &kp L    &kp SEMICOLON
+&kp Q           &kp W         &kp E                &kp R    &kp T                                     &kp Y        &kp U  &kp I      &kp O    &kp P
+&kp A           &kp S         &kp D                &kp F    &kp G                                     &kp H        &kp J  &lt 6 K    &kp L    &kp BACKSPACE
 &kp Z           &kp X         &kp C                &kp V    &kp B                                     &kp N        &kp M  &kp COMMA  &kp DOT  &kp SLASH
 &kp LEFT_SHIFT  &kp LEFT_ALT  &mt LEFT_COMMAND F4  &kp INS  &lt 2 SPACE  &lt 3 CAPS    &kp BACKSPACE  &lt 4 ENTER         &lt 7 F4   &kp TAB  &kp ESCAPE
             >;
@@ -201,7 +190,7 @@ mouse_scrl: mouse_wheel_scrl {
 &trans  &trans                      &trans                    &trans                       &trans  &trans    &kp LG(KP_MINUS)  &kp LG(KP_PLUS)                        &trans  &trans                 &trans
             >;
 
-            sensor-bindings = <&mouse_scrl SCRL_LEFT SCRL_RIGHT>;
+            sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
         };
 
         WIRELESS {
@@ -215,20 +204,13 @@ mouse_scrl: mouse_wheel_scrl {
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
         };
     };
-}; /* ← ここで / { ... } を閉じます */
-/* 6. リスナー設定 */
-
-&msc_input_listener {
-    /* 空にすることで、エンコーダー側の設定を初期状態（相談前）として扱います */
-};
-
+};/* ここから下を完全に上書きしてください */
 &trackball_listener {
     scroller {
-        layers = <SCROLL>;
-        input-processors = 
+        layers = <6>;
+        input-processors =
+            <&zip_xy_scaler 1 20>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* トラックボールのスクロールを1/40に落とします */
-            <&zip_xy_scaler 1 40>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
