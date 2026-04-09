@@ -2,15 +2,12 @@
 include:
   - board: seeeduino_xiao_ble
     shield: LiNEA40_left rgbled_adapter
-    # 左側：エンコーダーとマウスキー機能を有効化
     cmake-args: -DCONFIG_ZMK_MOUSE=y -DCONFIG_ZMK_POINTING=y
 
   - board: seeeduino_xiao_ble
     shield: LiNEA40_right rgbled_adapter
-    # 右側：トラックボール、ZMK Studio、マウス機能を有効化
-    # 以下の末尾に「 -DCONFIG_ZMK_POINTING_SMOOTH_SCROLLING=y」を追記しました
     snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_MOUSE=y -DCONFIG_ZMK_POINTING=y -DCONFIG_ZMK_POINTING_SMOOTH_SCROLLING=y
+    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_MOUSE=y -DCONFIG_ZMK_POINTING=y
 
   - board: seeeduino_xiao_ble
     shield: settings_reset
