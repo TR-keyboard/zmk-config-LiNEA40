@@ -204,11 +204,14 @@
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
         };
     };
-};
+};/* エンコーダーの設定は一切変えず、ここ（トラックボール専用）だけを書き換えます */
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors = 
-            <&zip_xy_to_scroll_mapper>; // 減速(scaler)をあえて外して、生の動きを確認する
+        input-processors =
+            /* 1 20 をさらに大きくして、より低速にします（例: 1 40） */
+            <&zip_xy_scaler 1 40>, 
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+            <&zip_xy_to_scroll_mapper>;
     };
 };
