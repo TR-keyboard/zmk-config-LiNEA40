@@ -89,7 +89,15 @@
         };
     };
 
-    behaviors {
+  behaviors {
+        /* ここに追加 */
+        iscr: inertial_scroll {
+            compatible = "zmk,behavior-inertial-scroll";
+            #binding-cells = <0>;
+            friction = <10>;   
+            velocity = <60>;   
+        };
+
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
@@ -198,12 +206,11 @@
 
 &trackball_listener {
     scroller {
-        layers = <6>;
+        layers = <SCROLL>; // 名前で定義されているので SCROLL にしておきます（中身は6と同じです）
         input-processors =
-            /* 1 15 よりもさらに分母を大きくして、1ステップあたりの移動量を小さくします */
-            <&zip_xy_scaler 1 30>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* ここで「小さな移動」を「細かなスクロール」に変換します */
+            /* 慣性スクロールを適用。これにより「飛び」をソフトに補完します */
+            <&iscr>,
             <&zip_xy_to_scroll_mapper>;
     };
 };
