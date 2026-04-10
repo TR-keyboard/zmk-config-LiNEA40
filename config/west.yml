@@ -9,7 +9,7 @@ manifest:
     - name: caksoylar
       url-base: https://github.com/caksoylar
     - name: cat-sh
-      url-base: https://github.com/cat-sh
+      url-base: https://github.com/cat-sh-zmk
   projects:
     - name: zmk
       remote: zmkfirmware
