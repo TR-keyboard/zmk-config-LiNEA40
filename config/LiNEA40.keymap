@@ -204,15 +204,14 @@
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
       };
     };
-}; // 207行目：スラッシュを消してこのように閉じます
+};
 
 &trackball_listener {
     scroller {
         layers = <6>;
         input-processors =
-            /* 分母を小さくして速度を微増させ、track-remainders でジャンプを抑制します */
             <&zip_xy_scaler 1 15 track-remainders>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
     };
-}; // 216行目で終了。これ以降に }; は不要です
+};
