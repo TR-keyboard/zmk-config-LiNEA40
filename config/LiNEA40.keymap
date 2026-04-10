@@ -200,8 +200,10 @@
     scroller {
         layers = <6>;
         input-processors =
-            <&zip_xy_scaler 1 15>,
+            /* 1 15 よりもさらに分母を大きくして、1ステップあたりの移動量を小さくします */
+            <&zip_xy_scaler 1 5>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+            /* ここで「小さな移動」を「細かなスクロール」に変換します */
             <&zip_xy_to_scroll_mapper>;
     };
 };
