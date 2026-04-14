@@ -8,8 +8,6 @@ manifest:
       url-base: https://github.com/kay-yokoyama
     - name: caksoylar
       url-base: https://github.com/caksoylar
-    - name: cat-sh
-      url-base: https://github.com/cat-sh-zmk
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -21,8 +19,5 @@ manifest:
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: v0.3-branch
-    - name: zmk-input-behavior-inertial-scroll
-      remote: cat-sh
-      revision: main
   self:
     path: config
