@@ -121,10 +121,10 @@
 
         default_layer {
             bindings = <
-&kp Q           &kp W         &kp E                &kp R    &kp T                                     &kp Y        &kp U  &kp I      &kp O    &kp P
-&kp A           &kp S         &kp D                &kp F    &kp G                                     &kp H        &kp J  &lt 6 K    &kp L    &kp BACKSPACE
-&kp Z           &kp X         &kp C                &kp V    &kp B                                     &kp N        &kp M  &kp COMMA  &kp DOT  &kp SLASH
-&kp LEFT_SHIFT  &kp LEFT_ALT  &mt LEFT_COMMAND F4  &kp INS  &lt 2 SPACE  &lt 3 CAPS    &kp BACKSPACE  &lt 4 ENTER         &lt 7 F4   &kp TAB  &kp ESCAPE
+&mt LEFT_ALT Q  &kp W         &kp E                &kp R    &kp T                                            &kp Y        &kp U  &kp I      &kp O    &kp P
+&kp A           &kp S         &kp D                &kp F    &kp G                                            &kp H        &kp J  &lt 6 K    &kp L    &kp BACKSPACE
+&kp Z           &kp X         &kp C                &kp V    &kp B                                            &kp N        &kp M  &kp COMMA  &kp DOT  &kp SLASH
+&kp LEFT_SHIFT  &kp LEFT_ALT  &mt LEFT_COMMAND F4  &kp INS  &lt 2 SPACE  &mt LEFT_GUI CAPS    &kp BACKSPACE  &lt 4 ENTER         &lt 7 F4   &kp ESC  &trans
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -141,10 +141,10 @@
 
         Number {
             bindings = <
-&kp N1          &kp N2    &kp N3    &kp N4           &kp NUMBER_5                           &kp N6                &kp NUMBER_7           &kp N8     &kp N9      &kp N0
-&kp ESC         &kp LEFT  &kp UP    &kp RIGHT_ARROW  &trans                                 &trans                &trans                 &kp SQT    &kp MINUS   &kp EQUAL
-&kp TAB         &trans    &kp DOWN  &trans           &trans                                 &kp LS(LEFT_BRACKET)  &kp LS(RIGHT_BRACKET)  &kp COMMA  &kp PERIOD  &kp SLASH
-&kp LEFT_SHIFT  &trans    &trans    &trans           &trans        &trans    &kp BACKSPACE  &trans                                       &trans     &trans      &trans
+&kp N1          &kp N2    &kp N3    &kp N4           &kp NUMBER_5                           &kp N6            &kp NUMBER_7       &kp N8     &kp N9      &kp N0
+&kp TAB         &kp LEFT  &kp UP    &kp RIGHT_ARROW  &trans                                 &trans            &trans             &kp SQT    &kp MINUS   &kp EQUAL
+&kp TAB         &trans    &kp DOWN  &trans           &trans                                 &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp COMMA  &kp PERIOD  &kp SLASH
+&kp LEFT_SHIFT  &trans    &trans    &trans           &trans        &trans    &kp BACKSPACE  &trans                               &trans     &trans      &trans
             >;
 
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
@@ -210,8 +210,10 @@
         layers = <6>;
         input-processors =
             /* 1 15 よりもさらに分母を大きくして、1ステップあたりの移動量を小さくします */,
+            ,,
             <&zip_xy_scaler 1 30>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+            ,,
             /* ここで「小さな移動」を「細かなスクロール」に変換します */,
             <&zip_xy_to_scroll_mapper>;
     };
