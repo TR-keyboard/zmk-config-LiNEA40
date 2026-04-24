@@ -208,11 +208,11 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1. ボールの回転を極限まで細かく拾う */
-            <&zip_xy_scaler 1 1>, 
+            /* 1を20に戻します。これでチップの負荷を下げ、暴走を止めます */
+            <&zip_xy_scaler 1 20>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            /* 2. 1回あたりのスクロールを消しゴムのカスのように小さくする */
-            <&zip_wheel_scaler 1 80>, 
+            /* ブレーキも現実的な 5倍 程度にします */
+            <&zip_wheel_scaler 1 5>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
