@@ -183,10 +183,10 @@
 
         SCROLL {
             bindings = <
-&trans  &kp LC(LA(LEFT_ARROW))      &kp LS(LC(LA(UP_ARROW)))  &kp LC(LA(RIGHT_ARROW))      &trans                              &trans           &trans                &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &trans
-&trans  &kp LS(LA(LC(LEFT_ARROW)))  &kp LS(LA(LC(DOWN)))      &kp LS(LA(LC(RIGHT_ARROW)))  &trans                              &trans           &kp LG(LEFT_BRACKET)  &trans                &kp LG(RIGHT_BRACKET)  &trans
-&trans  &trans                      &kp LG(M)                 &trans                       &trans                              &trans           &trans                &trans                &trans                 &trans
-&trans  &trans                      &trans                    &trans                       &trans  &trans    &kp LG(KP_MINUS)  &kp LG(KP_PLUS)                        &trans                &trans                 &trans
+&trans  &kp LC(LA(LEFT_ARROW))      &kp LS(LC(LA(UP_ARROW)))  &kp LC(LA(RIGHT_ARROW))      &trans                                        &trans           &trans                &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &trans
+&trans  &kp LS(LA(LC(LEFT_ARROW)))  &kp LS(LA(LC(DOWN)))      &kp LS(LA(LC(RIGHT_ARROW)))  &trans                                        &trans           &kp LG(LEFT_BRACKET)  &trans                &kp LG(RIGHT_BRACKET)  &trans
+&trans  &trans                      &kp LG(M)                 &trans                       &trans                                        &trans           &trans                &trans                &trans                 &trans
+&trans  &trans                      &trans                    &trans                       &trans  &kp LEFT_COMMAND    &kp LG(KP_MINUS)  &kp LG(KP_PLUS)                        &trans                &trans                 &trans
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
@@ -204,10 +204,11 @@
         };
     };
 };
+
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors = 
+        input-processors =
             <&zip_xy_scaler 1 45>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
