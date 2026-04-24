@@ -204,13 +204,15 @@
         };
     };
 };
-
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors =
-            <&zip_xy_scaler 1 18>,
+        input-processors = 
+            /* 1. ボールの回転を極限まで細かく拾う */
+            <&zip_xy_scaler 1 1>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+            /* 2. 1回あたりのスクロールを消しゴムのカスのように小さくする */
+            <&zip_wheel_scaler 1 80>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
