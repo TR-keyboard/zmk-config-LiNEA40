@@ -208,16 +208,11 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* ボールの回転を「標準的」にする。マイコンへの負荷もありません */
             <&zip_xy_scaler 1 20>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-
-            /* 左右への漏れを半分にカット（エンコーダーには影響しません） */
             <&zip_x_scaler 1 2>, 
-
-            /* 【最重要】Mac Mouse Fixが「飛び跳ねる」のを防ぐブレーキ */
-            <&zip_wheel_scaler 1 15>, 
-            
+            /* .confで重くしたので、ここは 1 2 くらいで十分滑らかになります */
+            <&zip_wheel_scaler 1 2>, 
             <&zip_xy_to_scroll_mapper>;
     };
 };
