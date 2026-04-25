@@ -208,16 +208,13 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1 20 でしっかり間引き、Mac側への負荷を抑える */
+            /* 信号を 20分の1 に間引いて安定させる */
             <&zip_xy_scaler 1 20>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             
-            /* 左右のブレ防止（ここは長谷川さんの必須設定です） */
+            /* 左右のブレ防止 */
             <&zip_x_scaler 1 2>, 
 
-            /* 今回追加：信号の「カド」を取って滑らかにする */
-            <&zip_scroll_rebounder>, 
-            
             <&zip_xy_to_scroll_mapper>;
     };
 };
