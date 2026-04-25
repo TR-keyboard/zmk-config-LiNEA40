@@ -208,14 +208,16 @@
     scroller {
         layers = <6>;
         input-processors = 
-            /* 1. 感度を 1 20 に戻します（これで「触った瞬間に飛ぶ」のを防ぎます） */
+            /* 1 20 でしっかり間引き、Mac側への負荷を抑える */
             <&zip_xy_scaler 1 20>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-
-            /* 2. 左右のブレだけを半分に抑える設定 */
+            
+            /* 左右のブレ防止（ここは長谷川さんの必須設定です） */
             <&zip_x_scaler 1 2>, 
 
-            /* 余計な wheel_scaler は一切入れず、シンプルに Mac へ送ります */
+            /* 今回追加：信号の「カド」を取って滑らかにする */
+            <&zip_scroll_rebounder>, 
+            
             <&zip_xy_to_scroll_mapper>;
     };
 };
