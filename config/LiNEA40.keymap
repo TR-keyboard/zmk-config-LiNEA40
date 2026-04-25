@@ -208,11 +208,19 @@
     scroller {
         layers = <6>;
         input-processors = 
+            /* 1. ボールの回転を20分の1で拾う（最も安定する密度です） */
             <&zip_xy_scaler 1 20>, 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+
+            /* 2. 【左右のガタつきを消す】横方向の感度だけを「半分」に落とします */
+            /* これにより、真っ直ぐ上下に回しやすくなります */
             <&zip_x_scaler 1 2>, 
-            /* .confで重くしたので、ここは 1 2 くらいで十分滑らかになります */
+
+            /* 3. 【仕上げ】Mac Mouse Fix への信号を「細かく」します */
+            /* .conf側で重くしたので、ここで 1 2 くらいに設定すると */
+            /* 慣性の「ヌルヌル」が最も綺麗に乗るようになります */
             <&zip_wheel_scaler 1 2>, 
+            
             <&zip_xy_to_scroll_mapper>;
     };
 };
