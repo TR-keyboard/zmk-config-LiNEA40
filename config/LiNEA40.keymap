@@ -89,6 +89,11 @@
             bindings = <&mkp MB5>;
             key-positions = <26 27>;
         };
+
+        alfred-F4 {
+            bindings = <&kp F4>;
+            key-positions = <12 13>;
+        };
     };
 
     behaviors {
@@ -204,17 +209,16 @@
         };
     };
 };
+
 &trackball_listener {
     scroller {
         layers = <6>;
-        input-processors = 
-            /* 信号を 20分の1 に間引いて安定させる */
-            <&zip_xy_scaler 1 20>, 
+        input-processors =
+            /* 信号を 20分の1 に間引いて安定させる */,
+            <&zip_xy_scaler 1 20>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            
-            /* 左右のブレ防止 */
-            <&zip_x_scaler 1 2>, 
-
+            /* 左右のブレ防止 */,
+            <&zip_x_scaler 1 2>,
             <&zip_xy_to_scroll_mapper>;
     };
 };
