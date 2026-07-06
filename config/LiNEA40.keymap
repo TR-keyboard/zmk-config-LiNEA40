@@ -175,9 +175,9 @@
 
         SCROLL {
             bindings = <
-&trans  &kp LS(LA(LC(N7)))          &kp LS(LC(LA(UP_ARROW)))  &kp LS(LA(LC(N9)))           &trans                                        &trans           &trans                &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &trans
+&trans  &kp LS(LA(LG(N7)))          &kp LS(LC(LA(UP_ARROW)))  &kp LS(LA(LG(N9)))           &trans                                        &trans           &trans                &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &trans
 &trans  &kp LS(LA(LC(LEFT_ARROW)))  &kp LS(LA(LC(DOWN)))      &kp LS(LA(LC(RIGHT_ARROW)))  &trans                                        &trans           &kp LG(LEFT_BRACKET)  &trans                &kp LG(RIGHT_BRACKET)  &trans
-&trans  &kp LS(LA(LC(NUMBER_1)))    &kp LG(M)                 &kp LS(LA(LC(NUMBER_3)))     &trans                                        &trans           &trans                &trans                &trans                 &trans
+&trans  &kp LS(LA(LG(NUMBER_1)))    &kp LG(M)                 &kp LS(LA(LG(NUMBER_3)))     &trans                                        &trans           &trans                &trans                &trans                 &trans
 &trans  &trans                      &trans                    &trans                       &trans  &kp LEFT_COMMAND    &kp LG(KP_MINUS)  &kp LG(KP_PLUS)                        &trans                &trans                 &trans
             >;
 
