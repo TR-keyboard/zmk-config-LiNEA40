@@ -57,11 +57,6 @@
             key-positions = <6 7>;
         };
 
-        CenterClick {
-            bindings = <&mkp MB3>;
-            key-positions = <17 16>;
-        };
-
         RightClick {
             bindings = <&mkp MB2>;
             key-positions = <18 17>;
@@ -80,6 +75,11 @@
         alfred_f4 {
             bindings = <&kp F4>;
             key-positions = <12 13>;
+        };
+
+        Lang1 {
+            bindings = <&kp LANG1>;
+            key-positions = <16 17>;
         };
     };
 
